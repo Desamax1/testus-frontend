@@ -36,29 +36,43 @@ namespace testus2
 
         private async void Grid_Loaded(object sender, RoutedEventArgs e)
         {
-            BitmapImage b = new BitmapImage();
-            b.BeginInit();
-            b.UriSource = new Uri(Login.URI + "/img/user/" + Login.id);
-            b.EndInit();
-            Profilna.Source = b;
-
-            HttpClient httpClient = new HttpClient();
-            httpClient.Timeout = new TimeSpan(Login.TIMEOUT);
-            var res = await httpClient.GetFromJsonAsync<_ImePrezime>(Login.URI + "/user/info/" + Login.id);
-            if (res != null)
-            {
-                ImePrezime.Text = res.ime + " " + res.prezime;
-            }
+            Dashboard.UpdateName(ImePrezime);
+            Dashboard.UpdateAvatar(Profilna);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private async void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog f = new OpenFileDialog();
-            f.Filter = "Slike (jpg/jpeg, png, gif, webp)|*.png;*.jpg;*.jpeg;*.webp;*.gif";
+            f.Filter = "Slike|*.png;*.jpg;*.jpeg";
             f.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             if (f.ShowDialog() == true) // == true je neophodno jer je wpf bas dobar i ne konta da je true po defaultu boolean
             {
-                Console.WriteLine(f.FileName);
+                byte[] data = File.ReadAllBytes(f.FileName);
+                string b64 = Convert.ToBase64String(data);
+
+                HttpClient httpClient = new HttpClient();
+                httpClient.Timeout = new TimeSpan(Login.TIMEOUT);
+
+                var content = new FormUrlEncodedContent(new Dictionary<string, string>
+                {
+                    { "avatar", b64 }
+                });
+                
+                var res = await httpClient.PostAsync($"{Login.URI}/user/img/{Login.id}", content);
+                if ((int)res.StatusCode < 400)
+                {
+                    MessageBox.Show("Avatar uspesno promenjen!", "Avatar", MessageBoxButton.OK, MessageBoxImage.Information);
+                    BitmapImage b = new BitmapImage();
+                    b.BeginInit();
+                    b.UriSource = new Uri($"{Login.URI}/user/img/{Login.id}");
+                    b.EndInit();
+                    Profilna.Source = b;
+                    DialogResult = true;
+                }
+                else
+                {
+                    MessageBox.Show("Doslo je do greske prilikom promene avatara.\nPokusajte ponovo kasnije.", "Avatar", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }

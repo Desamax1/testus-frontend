@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.IO;
 
 namespace testus2
 {
@@ -31,21 +32,53 @@ namespace testus2
             InitializeComponent();
         }
 
-        private async void Grid_Loaded(object sender, RoutedEventArgs e)
+        public static BitmapImage ToImage(byte[] array)
         {
-            BitmapImage b = new BitmapImage();
-            b.BeginInit();
-            b.UriSource = new Uri(Login.URI + "/img/user/" + Login.id);
-            b.EndInit();
-            Profilna.Source = b;
+            using (var ms = new System.IO.MemoryStream(array))
+            {
+                var image = new BitmapImage();
+                image.BeginInit();
+                image.CacheOption = BitmapCacheOption.OnLoad; // here
+                image.StreamSource = ms;
+                image.EndInit();
+                return image;
+            }
+        }
 
+        public static async void UpdateAvatar(Image img)
+        {
+            HttpClient httpClient = new HttpClient();
+            httpClient.Timeout = new TimeSpan(Login.TIMEOUT);
+            var res = await httpClient.GetAsync($"{Login.URI}/user/img/{Login.id}");
+            string base64string = await res.Content.ReadAsStringAsync();
+            //File.WriteAllBytes("slika.jpg", Convert.FromBase64String(base64string));
+
+            //using (Stream stream = File.Open(Environment.CurrentDirectory + "\\slika.jpg", FileMode.Open))
+            //{
+            //    BitmapImage imgsrc = new BitmapImage();
+            //    imgsrc.BeginInit();
+            //    imgsrc.StreamSource = stream;
+            //    imgsrc.EndInit();
+            //    img.Source = imgsrc;
+            //}
+            img.Source = ToImage(Convert.FromBase64String(base64string));
+        }
+
+        public static async void UpdateName(TextBlock tb)
+        {
             HttpClient httpClient = new HttpClient();
             httpClient.Timeout = new TimeSpan(Login.TIMEOUT);
             var res = await httpClient.GetFromJsonAsync<_ImePrezime>(Login.URI + "/user/info/" + Login.id);
             if (res != null)
             {
-                ImePrezime.Text = res.ime + " " + res.prezime;
+                tb.Text = res.ime + " " + res.prezime;
             }
+        }
+
+        private async void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            UpdateName(ImePrezime);
+            UpdateAvatar(Profilna);
         }
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -60,6 +93,7 @@ namespace testus2
         {
             MojProfil mp = new MojProfil();
             mp.ShowDialog();
+            UpdateAvatar(Profilna);
         }
     }
 }

@@ -43,7 +43,7 @@
             </PasswordBox.Effect>
         </PasswordBox>
         
-        <Button Grid.Column="0" Grid.Row="7" Content="PRIJAVA" HorizontalAlignment="Center"  FontSize="36" Width="400" Cursor="Hand" Click="Button_Click_3">
+        <Button Grid.Column="0" Grid.Row="7" Content="PRIJAVA" HorizontalAlignment="Center"  FontSize="36" Width="400" Cursor="Hand" Click="Button_Click_3" IsDefault="True">
             <Button.Resources>
                 <Style TargetType="Border">
                     <Setter Property="CornerRadius" Value="5" />

@@ -89,7 +89,7 @@ namespace testus2
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Prijava", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message + '\n' + URI + "/login", "Prijava", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

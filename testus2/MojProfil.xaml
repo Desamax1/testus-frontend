@@ -96,7 +96,7 @@
             </Grid>
             
         </Grid>
-        <Button Grid.Column="0" Grid.Row="3" Content="Sacuvaj" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Center" Width="120" Height="60" Cursor="Hand">
+        <Button Grid.Column="0" Grid.Row="3" Content="Sacuvaj" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Center" Width="120" Height="60" Cursor="Hand" IsDefault="True">
             <Button.Effect>
                 <DropShadowEffect/>
             </Button.Effect>
