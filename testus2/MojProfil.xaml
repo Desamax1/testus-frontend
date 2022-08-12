@@ -33,6 +33,69 @@
             <Image Name="Profilna" Grid.Row="0" Grid.Column="0" Margin="0,0,10,0" Stretch="Fill" MaxWidth="120" MaxHeight="120" VerticalAlignment="Center"/>
             <TextBlock Name="ImePrezime" Grid.Row="0" Grid.Column="1" Text="Ime Prezime" FontSize="35" Background="White" VerticalAlignment="Center" />
         </Grid>
+        <Grid Grid.Column="0" Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="2.5*"/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Column="0" Grid.Row="0" Text="Promena profilne" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="24"></TextBlock>
+                <Button Grid.Column="1" Grid.Row="0" Content="Izaberi sliku" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="20" Click="Button_Click" Cursor="Hand">
+                    <Button.Effect>
+                        <DropShadowEffect/>
+                    </Button.Effect>
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="5"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+            </Grid>
+            <Grid Grid.Column="0" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                
+                <TextBlock Text="Promena lozinke" FontSize="24" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <Grid Grid.Column="1" Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" Grid.Row="0" Text="Trenutna lozinka" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Background="White"/>
+                    <PasswordBox Grid.Column="0" Grid.Row="1"/>
+                    <TextBlock Grid.Column="0" Grid.Row="2" Text="Nova lozinka" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Background="White"/>
+                    <PasswordBox Grid.Column="0" Grid.Row="3"/>
+                    <TextBlock Grid.Column="0" Grid.Row="4" Text="Potvrda nove lozinke" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Background="White"/>
+                    <PasswordBox Grid.Column="0" Grid.Row="5"/>
+                </Grid>
+            </Grid>
+            
+        </Grid>
         <Button Grid.Column="0" Grid.Row="3" Content="Sacuvaj" FontSize="24" VerticalAlignment="Top" HorizontalAlignment="Center" Width="120" Height="60" Cursor="Hand">
             <Button.Effect>
                 <DropShadowEffect/>
