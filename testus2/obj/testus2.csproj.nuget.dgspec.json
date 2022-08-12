@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Despot\\Desktop\\testus2\\testus2\\testus2.csproj": {}
+    "C:\\Users\\Despot\\Desktop\\testus-frontend\\testus2\\testus2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Despot\\Desktop\\testus2\\testus2\\testus2.csproj": {
+    "C:\\Users\\Despot\\Desktop\\testus-frontend\\testus2\\testus2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Despot\\Desktop\\testus2\\testus2\\testus2.csproj",
+        "projectUniqueName": "C:\\Users\\Despot\\Desktop\\testus-frontend\\testus2\\testus2.csproj",
         "projectName": "testus2",
-        "projectPath": "C:\\Users\\Despot\\Desktop\\testus2\\testus2\\testus2.csproj",
+        "projectPath": "C:\\Users\\Despot\\Desktop\\testus-frontend\\testus2\\testus2.csproj",
         "packagesPath": "C:\\Users\\Despot\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Despot\\Desktop\\testus2\\testus2\\obj\\",
+        "outputPath": "C:\\Users\\Despot\\Desktop\\testus-frontend\\testus2\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Despot\\AppData\\Roaming\\NuGet\\NuGet.Config",

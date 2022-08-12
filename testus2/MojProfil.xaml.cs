@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Net.Http;
 using System.Net.Http.Json;
+using System.IO;
+using Microsoft.Win32;
+
 
 namespace testus2
 {
@@ -45,6 +48,17 @@ namespace testus2
             if (res != null)
             {
                 ImePrezime.Text = res.ime + " " + res.prezime;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog f = new OpenFileDialog();
+            f.Filter = "Slike (jpg/jpeg, png, gif, webp)|*.png;*.jpg;*.jpeg;*.webp;*.gif";
+            f.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
+            if (f.ShowDialog() == true) // == true je neophodno jer je wpf bas dobar i ne konta da je true po defaultu boolean
+            {
+                Console.WriteLine(f.FileName);
             }
         }
     }
