@@ -12,6 +12,27 @@
         WindowState="Maximized"
         WindowStyle="None"
         Title="Main" MinHeight="600" MinWidth="800">
+    <Window.Resources>
+        <Style x:Key="_ListBoxItemStyle" TargetType="ListBoxItem">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ListBoxItem">
+                        <Border Name="_Border"
+                                Padding="2"
+                                SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsSelected" Value="true">
+                                <Setter TargetName="_Border" Property="Background" Value="#FFFF5B5B"/>
+                                <Setter Property="Foreground" Value="Black"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="/pozadina_projekat.png" TileMode="Tile" Viewport="120,120,120,120" ViewportUnits="Absolute"/>
@@ -24,7 +45,8 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Border BorderThickness="0,0,3,0" BorderBrush="Black" >
-            <ListBox Grid.Row="0" Grid.Column="0" Name="ZadaciListBox" />
+            <ListBox SelectionChanged="ZadaciListBox_SelectionChanged" Grid.Row="0" Grid.Column="0" Name="ZadaciListBox" ItemContainerStyle="{DynamicResource _ListBoxItemStyle}" >
+            </ListBox>
         </Border>
         <Grid Grid.Row="0" Grid.Column="1">
             <Grid.RowDefinitions>
@@ -35,8 +57,8 @@
                 <RowDefinition Height="0.3*"/>
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Text="15:00" VerticalAlignment="Center" Margin="0,0,30,0" FontSize="30" Background="White"/>
-            <Image Grid.Column="0" Grid.Row="1" Stretch="Fill" Name="TekstImg" Width="500" />
+            <TextBlock Name="Timer" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Text="" VerticalAlignment="Center" Margin="0,0,30,0" FontSize="30" Background="White"/>
+            <Image Source="nigerniger.jpg" Grid.Column="0" Grid.Row="1" Stretch="Fill" Name="TekstImg" Width="500" />
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -46,17 +68,25 @@
                     <RowDefinition/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
-                <Image Name="Ans1" Grid.Column="0" Grid.Row="0" Width="200" Height="80" Stretch="Fill" />
-                <Image Name="Ans2" Grid.Column="0" Grid.Row="1" Width="200" Height="80" Stretch="Fill" />
-                <Image Name="Ans3" Grid.Column="1" Grid.Row="0" Width="200" Height="80" Stretch="Fill" />
-                <Image Name="Ans4" Grid.Column="1" Grid.Row="1" Width="200" Height="80" Stretch="Fill" />
+                <Border Name="b1" Grid.Column="0" Grid.Row="0">
+                <Image Source="nigerniger.jpg" MouseDown="Ans1_MouseDown" Name="Ans1"  Width="200" Height="80" Stretch="Fill" />
+                </Border>
+                <Border Name="b2" Grid.Column="0" Grid.Row="1">
+                    <Image Source="nigerniger.jpg" MouseDown="Ans2_MouseDown" Name="Ans2"  Width="200" Height="80" Stretch="Fill" />
+                </Border>
+                <Border Name="b3" Grid.Column="1" Grid.Row="0">
+                    <Image Source="nigerniger.jpg" MouseDown="Ans3_MouseDown" Name="Ans3"  Width="200" Height="80" Stretch="Fill" />
+                </Border>
+                <Border Name="b4" Grid.Column="1" Grid.Row="1">
+                    <Image Source="nigerniger.jpg" MouseDown="Ans4_MouseDown" Name="Ans4"  Width="200" Height="80" Stretch="Fill" />
+                </Border>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="0" Width="500">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <Button Name="PrethodnoButton" Grid.Column="0" Grid.Row="0" Height="40" Width="200" Content="Prethodno pitanje" Cursor="Hand">
+                <Button Name="PrethodnoButton" Grid.Column="0" Grid.Row="0" Height="40" Width="200" Content="Prethodno pitanje" Cursor="Hand" Click="PrethodnoButton_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5" />
@@ -66,7 +96,7 @@
                         <DropShadowEffect/>
                     </Button.Effect>
                 </Button>
-                <Button Name="SledeceButton" Grid.Column="1" Grid.Row="0" Height="40" Width="200" Content="Sledece pitanje" Cursor="Hand">
+                <Button Name="SledeceButton" Grid.Column="1" Grid.Row="0" Height="40" Width="200" Content="Sledece pitanje" Cursor="Hand" Click="SledeceButton_Click">
                     <Button.Resources>
                         <Style TargetType="Border">
                             <Setter Property="CornerRadius" Value="5" />

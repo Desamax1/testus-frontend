@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using System.Net.Http;
 using System.Net.Http.Json;
 
+
 namespace testus2
 {
     /// <summary>
@@ -23,8 +24,8 @@ namespace testus2
     {
         class _ImePrezime
         {
-            public string ime { get; set; }
-            public string prezime { get; set; }
+            public string? ime { get; set; }
+            public string? prezime { get; set; }
         }
         public Dashboard()
         {
@@ -60,6 +61,12 @@ namespace testus2
         {
             MojProfil mp = new MojProfil();
             mp.ShowDialog();
+        }
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Main m = new Main();
+            m.Show();
+            Close();
         }
     }
 }

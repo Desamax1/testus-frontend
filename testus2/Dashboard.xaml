@@ -51,7 +51,7 @@
                 <RowDefinition/>
             </Grid.RowDefinitions>
 
-            <Button Grid.Column="0" Grid.Row="0" Content="Započni vežbanje" Width="250" Height="75" FontSize="26" Cursor="Hand" BorderThickness="3" BorderBrush="{x:Null}">
+            <Button Click="Button_Click" Grid.Column="0" Grid.Row="0" Content="Započni vežbanje" Width="250" Height="75" FontSize="26" Cursor="Hand" BorderThickness="3" BorderBrush="{x:Null}">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="5"/>
