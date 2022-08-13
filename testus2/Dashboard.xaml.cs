@@ -48,13 +48,13 @@ namespace testus2
 
         public static async void UpdateAvatar(Image img)
         {
-            HttpClient httpClient = new HttpClient();
-            httpClient.Timeout = new TimeSpan(Login.TIMEOUT);
-
-            var res = await httpClient.GetAsync($"{Login.URI}/user/img/{Login.id}");
-
-            string base64string = await res.Content.ReadAsStringAsync();
-            img.Source = ToImage(Convert.FromBase64String(base64string));
+            BitmapImage i = new BitmapImage();
+            i.BeginInit();
+            i.CreateOptions = BitmapCreateOptions.IgnoreImageCache;
+            i.CacheOption = BitmapCacheOption.OnLoad;
+            i.UriSource = new Uri($"{Login.URI}/user/img/{Login.id}");
+            i.EndInit();
+            img.Source = i;
         }
 
         public static async void UpdateName(TextBlock tb)
