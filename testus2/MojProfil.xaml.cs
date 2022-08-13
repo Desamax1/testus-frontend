@@ -15,7 +15,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.IO;
 using Microsoft.Win32;
-
+using ImageMagick;
 
 namespace testus2
 {
@@ -40,15 +40,42 @@ namespace testus2
             Dashboard.UpdateAvatar(Profilna);
         }
 
+        private string ConvertImage(string path)
+        {
+            try
+            {
+                using (var image = new MagickImage(path))
+                {
+                    var size = new MagickGeometry(120, 120);
+                    size.IgnoreAspectRatio = true;
+
+                    image.Resize(size);
+
+                    image.Format = MagickFormat.WebP;
+
+                    return image.ToBase64();
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
         private async void Button_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog f = new OpenFileDialog();
-            f.Filter = "Slike|*.png;*.jpg;*.jpeg";
+            f.Filter = "Slike|*.png;*.jpg;*.jpeg;*.webp;*.gif;*.bmp;*.jfif;*.tiff";
             f.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
             if (f.ShowDialog() == true) // == true je neophodno jer je wpf bas dobar i ne konta da je true po defaultu boolean
             {
-                byte[] data = File.ReadAllBytes(f.FileName);
-                string b64 = Convert.ToBase64String(data);
+                string b64 = ConvertImage(f.FileName);
+
+                if (b64 == null)
+                {
+                    MessageBox.Show("Doslo je do greske prilikom konverzije slike.\nDa li je sve u redu sa fajlom?", "Avatar", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
 
                 HttpClient httpClient = new HttpClient();
                 httpClient.Timeout = new TimeSpan(Login.TIMEOUT);
