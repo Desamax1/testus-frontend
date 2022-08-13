@@ -39,7 +39,7 @@ namespace testus2
             {
                 var image = new BitmapImage();
                 image.BeginInit();
-                image.CacheOption = BitmapCacheOption.OnLoad; // here
+                image.CacheOption = BitmapCacheOption.OnLoad;
                 image.StreamSource = ms;
                 image.EndInit();
                 return image;
@@ -50,18 +50,10 @@ namespace testus2
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Timeout = new TimeSpan(Login.TIMEOUT);
-            var res = await httpClient.GetAsync($"{Login.URI}/user/img/{Login.id}");
-            string base64string = await res.Content.ReadAsStringAsync();
-            //File.WriteAllBytes("slika.jpg", Convert.FromBase64String(base64string));
 
-            //using (Stream stream = File.Open(Environment.CurrentDirectory + "\\slika.jpg", FileMode.Open))
-            //{
-            //    BitmapImage imgsrc = new BitmapImage();
-            //    imgsrc.BeginInit();
-            //    imgsrc.StreamSource = stream;
-            //    imgsrc.EndInit();
-            //    img.Source = imgsrc;
-            //}
+            var res = await httpClient.GetAsync($"{Login.URI}/user/img/{Login.id}");
+
+            string base64string = await res.Content.ReadAsStringAsync();
             img.Source = ToImage(Convert.FromBase64String(base64string));
         }
 
