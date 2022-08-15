@@ -100,11 +100,11 @@ namespace testus2
         }
         private async void ucitajZadatak() {
 
-            HttpClient client = new HttpClient();
-            client.Timeout = new TimeSpan(Login.TIMEOUT);
-            var res= await client.GetAsync(Login.URI+"/vezbanje");
+            //HttpClient client = new HttpClient();
+            //client.Timeout = new TimeSpan(Login.TIMEOUT);
+            //var res= await client.GetAsync(Login.URI+"/vezbanje");
 
-            var jsonObject = JsonNode.Parse(res.ToString());
+            //var jsonObject = JsonNode.Parse(res.ToString());
         }
 
         private void Ans1_MouseDown(object sender, MouseButtonEventArgs e)

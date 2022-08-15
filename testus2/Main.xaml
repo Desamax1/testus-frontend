@@ -58,7 +58,7 @@
                 <RowDefinition Height="0.1*"/>
             </Grid.RowDefinitions>
             <TextBlock Name="Timer" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" Text="" VerticalAlignment="Center" Margin="0,0,30,0" FontSize="30" Background="White"/>
-            <Image Source="nigerniger.jpg" Grid.Column="0" Grid.Row="1" Stretch="Fill" Name="TekstImg" Width="500" />
+            <Image Source="img/nigerniger.jpg" Grid.Column="0" Grid.Row="1" Stretch="Fill" Name="TekstImg" Width="500" />
             <Grid Grid.Row="3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
@@ -69,16 +69,16 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Border Name="b1" Grid.Column="0" Grid.Row="0">
-                <Image Source="nigerniger.jpg" MouseDown="Ans1_MouseDown" Name="Ans1"  Width="200" Height="80" Stretch="Fill" />
+                <Image Source="img/nigerniger.jpg" MouseDown="Ans1_MouseDown" Name="Ans1"  Width="200" Height="80" Stretch="Fill" />
                 </Border>
                 <Border Name="b2" Grid.Column="0" Grid.Row="1">
-                    <Image Source="nigerniger.jpg" MouseDown="Ans2_MouseDown" Name="Ans2"  Width="200" Height="80" Stretch="Fill" />
+                    <Image Source="img/nigerniger.jpg" MouseDown="Ans2_MouseDown" Name="Ans2"  Width="200" Height="80" Stretch="Fill" />
                 </Border>
                 <Border Name="b3" Grid.Column="1" Grid.Row="0">
-                    <Image Source="nigerniger.jpg" MouseDown="Ans3_MouseDown" Name="Ans3"  Width="200" Height="80" Stretch="Fill" />
+                    <Image Source="img/nigerniger.jpg" MouseDown="Ans3_MouseDown" Name="Ans3"  Width="200" Height="80" Stretch="Fill" />
                 </Border>
                 <Border Name="b4" Grid.Column="1" Grid.Row="1">
-                    <Image Source="nigerniger.jpg" MouseDown="Ans4_MouseDown" Name="Ans4"  Width="200" Height="80" Stretch="Fill" />
+                    <Image Source="img/nigerniger.jpg" MouseDown="Ans4_MouseDown" Name="Ans4"  Width="200" Height="80" Stretch="Fill" />
                 </Border>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="0" Width="500">

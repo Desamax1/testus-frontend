@@ -8,7 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="img\nigerniger.jpg" />
     <None Remove="pozadina_projekat.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="img\nigerniger.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
