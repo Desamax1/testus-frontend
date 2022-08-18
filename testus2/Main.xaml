@@ -71,16 +71,16 @@
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Border BorderBrush="Red" Name="b1" Width="200" Height="80" >
-                    <Image  Grid.Row="0" Grid.Column="0" Source="img/nigerniger.jpg" MouseDown="Ans1_MouseDown" Name="Ans1"   Stretch="Fill" />
+                    <Image  Grid.Row="0" Grid.Column="0" Source="img/nigerniger.jpg" MouseDown="HandleAns" Name="Ans1"   Stretch="Fill" />
                 </Border>
                 <Border  Width="200" Height="80" BorderBrush="Red" Name="b2" Grid.Column="0" Grid.Row="1">
-                    <Image Source="img/nigerniger.jpg" MouseDown="Ans2_MouseDown" Name="Ans2"  Stretch="Fill" />
+                    <Image Source="img/nigerniger.jpg" MouseDown="HandleAns" Name="Ans2"  Stretch="Fill" />
                 </Border>
                 <Border  Width="200" Height="80" BorderBrush="Red" Name="b3" Grid.Column="1" Grid.Row="0">
-                    <Image Source="img/nigerniger.jpg" MouseDown="Ans3_MouseDown" Name="Ans3"  Stretch="Fill" />
+                    <Image Source="img/nigerniger.jpg" MouseDown="HandleAns" Name="Ans3"  Stretch="Fill" />
                 </Border>
                 <Border  Width="200" Height="80" BorderBrush="Red" Name="b4" Grid.Column="1" Grid.Row="1">
-                    <Image Source="img/nigerniger.jpg" MouseDown="Ans4_MouseDown" Name="Ans4"  Stretch="Fill" />
+                    <Image Source="img/nigerniger.jpg" MouseDown="HandleAns" Name="Ans4"  Stretch="Fill" />
                 </Border>
             </Grid>
             <Grid Grid.Row="4" Grid.Column="0" Width="500">
