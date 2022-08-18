@@ -12,7 +12,7 @@ namespace testus2
         const int brojZad = 200;
         const int vreme = 1000;
 
-        string[] selectedAnswers;
+        string[]? selectedAnswers;
         int selektovaniIndeks = 0;
 
         public Main()
@@ -83,47 +83,51 @@ namespace testus2
                 return;
             }
             ResetDisplay();
-            if ((selectedAnswers[ZadaciListBox.SelectedIndex] != string.Empty))
-                switch (selectedAnswers[ZadaciListBox.SelectedIndex])
-                {
-                    case "Ans1":
-                        {
-                            b1.BorderThickness = new Thickness(3);
-                            b1.Height = 86;
-                            b1.Width = 206;
-                        }
-                        break;
-                    case "Ans2":
-                        {
-                            b2.BorderThickness = new Thickness(3);
-                            b2.Height = 86;
-                            b2.Width = 206;
-                        }
-                        break;
-                    case "Ans3":
-                        {
-                            b3.BorderThickness = new Thickness(3);
-                            b3.Height = 86;
-                            b3.Width = 206;
-                        }
-                        break;
-                    case "Ans4":
-                        {
-                            b4.BorderThickness = new Thickness(3);
-                            b4.Height = 86;
-                            b4.Width = 206;
-                        }
-                        break;
-                }
+            if (selectedAnswers is not null)
+            {
+                if ((selectedAnswers[ZadaciListBox.SelectedIndex] != string.Empty))
+                    switch (selectedAnswers[ZadaciListBox.SelectedIndex])
+                    {
+                        case "Ans1":
+                            {
+                                b1.BorderThickness = new Thickness(3);
+                                b1.Height = 86;
+                                b1.Width = 206;
+                            }
+                            break;
+                        case "Ans2":
+                            {
+                                b2.BorderThickness = new Thickness(3);
+                                b2.Height = 86;
+                                b2.Width = 206;
+                            }
+                            break;
+                        case "Ans3":
+                            {
+                                b3.BorderThickness = new Thickness(3);
+                                b3.Height = 86;
+                                b3.Width = 206;
+                            }
+                            break;
+                        case "Ans4":
+                            {
+                                b4.BorderThickness = new Thickness(3);
+                                b4.Height = 86;
+                                b4.Width = 206;
+                            }
+                            break;
+                    }
+            }
         }
-        private async void ucitajZadatak() {
+        private void ucitajZadatak() {
             // TODO: implenetirati logiku za preuzimanje zadataka sa backend-a
         }
         private void HandleAns(object sender, MouseButtonEventArgs e)
         {
             selektovaniIndeks = ZadaciListBox.SelectedIndex;
             ZadaciListBox.Items[ZadaciListBox.SelectedIndex] = $"⚫ Pitanje br. {(ZadaciListBox.SelectedIndex + 1)}";
-            selectedAnswers[selektovaniIndeks] = (sender as Image).Name;
+            if (selectedAnswers is not null)
+                selectedAnswers[selektovaniIndeks] = (sender as Image).Name;
             ZadaciListBox.SelectedIndex = selektovaniIndeks;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)

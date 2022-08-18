@@ -46,7 +46,7 @@ namespace testus2
             }
         }
 
-        public static async void UpdateAvatar(Image img)
+        public static void UpdateAvatar(Image img)
         {
             BitmapImage i = new BitmapImage();
             i.BeginInit();
@@ -68,7 +68,7 @@ namespace testus2
             }
         }
 
-        private async void Grid_Loaded(object sender, RoutedEventArgs e)
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             UpdateName(ImePrezime);
             UpdateAvatar(Profilna);

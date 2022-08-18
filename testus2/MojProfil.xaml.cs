@@ -26,15 +26,15 @@ namespace testus2
     {
         class _ImePrezime
         {
-            public string ime { get; set; }
-            public string prezime { get; set; }
+            public string? ime { get; set; }
+            public string? prezime { get; set; }
         }
         public MojProfil()
         {
             InitializeComponent();
         }
 
-        private async void Grid_Loaded(object sender, RoutedEventArgs e)
+        private void Grid_Loaded(object sender, RoutedEventArgs e)
         {
             Dashboard.UpdateName(ImePrezime);
             Dashboard.UpdateAvatar(Profilna);
@@ -56,9 +56,9 @@ namespace testus2
                     return image.ToBase64();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                return null;
+                return string.Empty;
             }
         }
 
@@ -71,7 +71,7 @@ namespace testus2
             {
                 string b64 = ConvertImage(f.FileName);
 
-                if (b64 == null)
+                if (b64 == string.Empty)
                 {
                     MessageBox.Show("Doslo je do greske prilikom konverzije slike.\nDa li je sve u redu sa fajlom?", "Avatar", MessageBoxButton.OK, MessageBoxImage.Error);
                     return;
