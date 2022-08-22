@@ -90,8 +90,8 @@ namespace testus2
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Main m = new Main();
-            m.Show();
+            NapraviTest nt = new NapraviTest();
+            nt.ShowDialog();
             Close();
         }
     }
