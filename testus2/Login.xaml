@@ -10,7 +10,7 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
         Title="Prijava" MinHeight="700" MinWidth="500">
-    <Grid>
+    <Grid Loaded="Grid_Loaded">
         <Grid.Background>
             <ImageBrush ImageSource="/pozadina_projekat.png" TileMode="Tile" Viewport="120,120,120,120" ViewportUnits="Absolute"/>
         </Grid.Background>
@@ -42,7 +42,9 @@
                 <DropShadowEffect/>
             </PasswordBox.Effect>
         </PasswordBox>
-        
+
+        <CheckBox Grid.Column="0" Grid.Row="5" Content="Zapamti me" HorizontalAlignment="Center" Margin="0,15,0,0" FontSize="16" Background="White" Name="RememberBox"/>
+
         <Button Grid.Column="0" Grid.Row="7" Content="PRIJAVA" HorizontalAlignment="Center"  FontSize="36" Width="400" Cursor="Hand" Click="Button_Click_3" IsDefault="True">
             <Button.Resources>
                 <Style TargetType="Border">
