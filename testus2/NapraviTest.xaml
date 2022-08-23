@@ -10,9 +10,12 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResize"
         Title="Napravi Test"
-        MinHeight="700" MinWidth="500"
-        Height="700" Width="500">
-    <Grid>
+        MinHeight="900" MinWidth="500"
+        Height="900" Width="500">
+    <Grid Loaded="Grid_Loaded">
+        <Grid.Background>
+            <ImageBrush ImageSource="/pozadina_projekat.png" TileMode="Tile" Viewport="120,120,120,120" ViewportUnits="Absolute"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
@@ -20,10 +23,14 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="0.5*"/>
             <RowDefinition Height="4*"/>
+            <RowDefinition Height="1.8*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <TextBlock Grid.Row="0" Grid.Column="0" Text="Napravite test" FontSize="45" HorizontalAlignment="Center" VerticalAlignment="Center" Background="White"/>
+        
         <TextBlock Grid.Row="1" Grid.Column="0" Text="Izaberite zeljene oblasti" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center" Name="SelectionTitle" Background="White"/>
+        
         <Grid Grid.Row="2" Grid.Column="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="0.1*"/>
@@ -33,28 +40,27 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <ListBox Grid.Row="0" Grid.Column="1" Name="MainListBox"/>
+            <ListBox Grid.Row="0" Grid.Column="1" Name="MainListBox" SelectionMode="Multiple" Cursor="Hand" />
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+
+        <Grid Grid.Row="3" Grid.Column="0" Name="SettingsGrid" Visibility="Hidden">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition Width="0.2*"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Button Grid.Row="0" Grid.Column="0" Content="Nazad" VerticalAlignment="Center" HorizontalAlignment="Right" FontSize="35" Padding="12" Cursor="Hand">
-                <Button.Effect>
-                    <DropShadowEffect/>
-                </Button.Effect>
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="5"/>
-                    </Style>
-                </Button.Resources>
-            </Button>
-            <Button Grid.Row="0" Grid.Column="2" Content="Napred" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="35" Padding="12" Cursor="Hand" Click="Button_Click">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition Height="0.5*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Broj zadataka" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18" Background="White" />
+            <TextBox Grid.Row="1" Grid.Column="0" Name="BrZad" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Tezina" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18" Background="White" />
+            <TextBox Grid.Row="1" Grid.Column="1" Name="Tezina" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+
+            <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Name="AddBtn" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Dodaj zadatke" FontSize="15" Padding="8" Cursor="Hand">
                 <Button.Effect>
                     <DropShadowEffect/>
                 </Button.Effect>
@@ -65,5 +71,16 @@
                 </Button.Resources>
             </Button>
         </Grid>
+
+        <Button Grid.Row="4" Grid.Column="0" Content="Dalje" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="40" Padding="12" Cursor="Hand" Click="NapredBtn_Click" Name="NapredBtn">
+            <Button.Effect>
+                <DropShadowEffect/>
+            </Button.Effect>
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="5"/>
+                </Style>
+            </Button.Resources>
+        </Button>
     </Grid>
 </Window>
