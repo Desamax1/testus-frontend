@@ -13,6 +13,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.IO;
 
 namespace testus2
 {
@@ -21,6 +24,7 @@ namespace testus2
         public static long id = -1;
         public static readonly string URI = @"http://najebaosam.ga:8000";
         public static readonly long TIMEOUT = 10000000;
+        HttpClient httpClient = new HttpClient();
         public Login()
         {
             InitializeComponent();
@@ -52,18 +56,28 @@ namespace testus2
             }
             try
             {
-                HttpClient httpClient = new HttpClient();
-                httpClient.Timeout = new TimeSpan(TIMEOUT);
                 var content = new FormUrlEncodedContent(new Dictionary<string, string>
                 {
                     { "email", Email.Text },
                     { "password", Password.Password },
                 });
-                var r = await httpClient.PostAsync(URI + "/login", content);
+                string loginUri = $"{URI}/login";
+                if (RememberBox.IsChecked == true)
+                {
+                    loginUri += "?remember=true";
+                }
+                var r = await httpClient.PostAsync(loginUri, content);
                 switch ((int)r.StatusCode)
                 {
                     case 200:
-                        id = Convert.ToInt64(await r.Content.ReadAsStringAsync());
+                        string raw = await r.Content.ReadAsStringAsync();
+                        JObject obj= JObject.Parse(raw);
+                        id = Convert.ToInt64(obj["id"]);
+                        // proveri da li je vracen connection string, i ako jeste zapamti ga
+                        if (obj["loginString"] is not null)
+                        {
+                            File.WriteAllText(Environment.CurrentDirectory + "\\loginToken.txt", obj["loginString"].ToString());
+                        }
                         // prebaci na dashboard
                         Dashboard d = new Dashboard();
                         d.Show();
@@ -90,6 +104,23 @@ namespace testus2
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message + '\n' + URI + "/login", "Prijava", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private async void Grid_Loaded(object sender, RoutedEventArgs e)
+        {
+            httpClient.Timeout = new TimeSpan(TIMEOUT);
+            if (File.Exists(Environment.CurrentDirectory + "\\loginToken.txt"))
+            {
+                string loginString = File.ReadAllText(Environment.CurrentDirectory + "\\loginToken.txt");
+                // posalji GET request na backend sa sadrzajem login tokena
+                // ako server posalje OK resonse, uloguj automatski
+                string raw = await httpClient.GetStringAsync($"{URI}/login/{loginString}");
+                JObject json = JObject.Parse(raw);
+                id = Convert.ToInt64(json["id"]);
+                Dashboard d = new Dashboard();
+                d.Show();
+                Close();
             }
         }
     }

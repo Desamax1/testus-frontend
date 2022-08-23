@@ -76,6 +76,11 @@ namespace testus2
 
         private void TextBlock_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            // odjava
+            if (File.Exists(Environment.CurrentDirectory + "\\loginToken.txt"))
+            {
+                File.Delete(Environment.CurrentDirectory + "\\loginToken.txt");
+            }
             Login.id = -1;
             Login l = new Login();
             l.Show();
