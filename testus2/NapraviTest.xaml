@@ -54,13 +54,17 @@
                 <RowDefinition Height="0.5*"/>
             </Grid.RowDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" Text="Broj zadataka" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18" Background="White" />
-            <TextBox Grid.Row="1" Grid.Column="0" Name="BrZad" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="Broj zadataka" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Background="White" />
+            <TextBox Grid.Row="1" Grid.Column="0" Name="BrZad" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18"/>
 
-            <TextBlock Grid.Row="0" Grid.Column="1" Text="Tezina" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="18" Background="White" />
-            <TextBox Grid.Row="1" Grid.Column="1" Name="Tezina" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+            <TextBlock Grid.Row="0" Grid.Column="1" Text="Tezina" VerticalAlignment="Bottom" HorizontalAlignment="Center" FontSize="20" Background="White" />
+            <ComboBox Grid.Row="1" Grid.Column="1" Name="Tezina" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Height="50" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="18">
+                <ComboBoxItem Content="Lako" IsSelected="True"/>
+                <ComboBoxItem Content="Srednje" IsSelected="False"/>
+                <ComboBoxItem Content="Tesko" IsSelected="False"/>
+            </ComboBox>
 
-            <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Name="AddBtn" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Dodaj zadatke" FontSize="15" Padding="8" Cursor="Hand">
+            <Button Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="2" Name="AddBtn" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Dodaj zadatke" FontSize="15" Padding="8" Cursor="Hand" Click="AddBtn_Click">
                 <Button.Effect>
                     <DropShadowEffect/>
                 </Button.Effect>

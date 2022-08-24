@@ -24,6 +24,35 @@ namespace testus2
         bool firstTime = true;
         HttpClient client = new HttpClient();
         Queue<string> oblasti = new Queue<string>();
+
+        class Zadatak
+        {
+            private string oblast;
+            private int tezina, broj;
+            public string Oblast
+            {
+                get { return oblast; }
+                set { oblast = value; }
+            }
+            public int Tezina
+            {
+                get { return tezina; }
+                set { tezina = value; }
+            }
+            public int Broj
+            {
+                get { return broj; }
+                set { broj = value; }
+            }
+            public Zadatak(string oblast, int tezina, int broj)
+            {
+                Oblast = oblast;
+                Tezina = tezina;
+                Broj = broj;
+            }
+        }
+        List<Zadatak> zadaci = new List<Zadatak>();
+
         public NapraviTest()
         {
             InitializeComponent();
@@ -52,7 +81,7 @@ namespace testus2
             // GET-uj sve oblasti sa servera i popuni lb
             FillListBox("all");
         }
-        private void NapredBtn_Click(object sender, RoutedEventArgs e)
+        private async void NapredBtn_Click(object sender, RoutedEventArgs e)
         {
             if (firstTime)
             {
@@ -77,9 +106,33 @@ namespace testus2
                 catch
                 {
                     // ovaj deo koda se izvrsi kada je zavrseno sa svim oblastima
+                    string genTestUrl = $"{Login.URI}/test?";
+                    foreach (Zadatak z in zadaci)
+                    {
+                        genTestUrl += "&oblast=" + z.Oblast;
+                        genTestUrl += "&broj=" + z.Broj.ToString();
+                        genTestUrl += "&tezina=" + z.Tezina.ToString();
+                    }
+                    var res = await client.PostAsync(genTestUrl, null);
+                    MessageBox.Show(await res.Content.ReadAsStringAsync());
                     ShowTest();
                 }
             }
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainListBox.SelectedIndex < 0)
+            {
+                MessageBox.Show("Morate izabrati oblast!", "Dodavanje zadatka", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            if (BrZad.Text == string.Empty)
+            {
+                MessageBox.Show("Potrebno je da popunite sva polja!", "Dodavanje zadatka", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            zadaci.Add(new Zadatak(MainListBox.SelectedItem.ToString(), Tezina.SelectedIndex, Convert.ToInt32(BrZad.Text)));
         }
     }
 }
