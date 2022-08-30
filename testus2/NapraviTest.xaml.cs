@@ -102,6 +102,8 @@ namespace testus2
                     // ako se ovaj kod izvrsava to znaci da i dalje ima oblasti u queue-u
                     string item = oblasti.Dequeue();
                     FillListBox(item);
+                    BrZad.Text = string.Empty;
+                    Tezina.SelectedIndex = 0;
                 }
                 catch
                 {
