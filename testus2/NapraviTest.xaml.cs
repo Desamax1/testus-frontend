@@ -21,7 +21,7 @@ namespace testus2
 {
     public partial class NapraviTest : Window
     {
-        public int testId = -1;
+        public static int testId = -1;
         bool firstTime = true;
         HttpClient client = new HttpClient();
         Queue<string> oblasti = new Queue<string>();

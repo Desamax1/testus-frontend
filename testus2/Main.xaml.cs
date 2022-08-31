@@ -3,15 +3,17 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
+using System.Net.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Collections.Immutable;
 
 namespace testus2
 {
     public partial class Main : Window
     {
-        // test varijabla - obrisati u production-u
-        const int brojZad = 200;
-        const int vreme = 1000;
-
+        HttpClient client = new HttpClient();
+        int brojZad;
         string[]? selectedAnswers;
         int selektovaniIndeks = 0;
 
@@ -22,6 +24,7 @@ namespace testus2
         private void Kraj()
         {
             MessageBox.Show("kraj");
+            NapraviTest.testId = -1;
             Dashboard d = new Dashboard();
             d.Show();
             Close();
@@ -122,6 +125,17 @@ namespace testus2
         private void ucitajZadatak() {
             // TODO: implenetirati logiku za preuzimanje zadataka sa backend-a
         }
+
+        private static string CleanUp(string s)
+        {
+            s = s.Replace(@"@", "");
+            s = s.Replace(@"\left|", "");
+            s = s.Replace(@"\right|", "");
+            s = s.Replace(@"\ ", "");
+            s = s.Replace(@" ", @"\,\,");
+            return s;
+        }
+
         private void HandleAns(object sender, MouseButtonEventArgs e)
         {
             selektovaniIndeks = ZadaciListBox.SelectedIndex;
@@ -130,8 +144,20 @@ namespace testus2
                 selectedAnswers[selektovaniIndeks] = (sender as Image).Name;
             ZadaciListBox.SelectedIndex = selektovaniIndeks;
         }
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            // GET-u test sa servera
+            var res = await client.GetAsync($"{Login.URI}/test?testId={NapraviTest.testId}");
+            JObject testData = JObject.Parse(await res.Content.ReadAsStringAsync());
+            int vreme = 600;
+            brojZad = Convert.ToInt32(testData["zadCount"]);
+            string[] zadaci = Convert.ToString(testData["zadaci"]).Split(';');
+            // potrebno je debloatovati sve stringove
+            for (int i = 0; i < zadaci.Length; i++)
+            {
+                zadaci[i] = CleanUp(zadaci[i]);
+            }
+
             ZadaciListBox.SelectedIndex = 0;
             selectedAnswers = new string[brojZad];
             for (int i = 0; i < selectedAnswers.Length; i++)
