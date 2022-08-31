@@ -21,6 +21,7 @@ namespace testus2
 {
     public partial class NapraviTest : Window
     {
+        public int testId = -1;
         bool firstTime = true;
         HttpClient client = new HttpClient();
         Queue<string> oblasti = new Queue<string>();
@@ -86,6 +87,8 @@ namespace testus2
             if (firstTime)
             {
                 SettingsGrid.Visibility = Visibility.Visible;
+                SelectionTitle.Text = "Izaberite zeljnu podoblast, odaberite zeljenu tezinu i unesite zeljeni broj zadataka";
+                SelectionTitle.TextWrapping = TextWrapping.Wrap;
                 foreach (var item in MainListBox.SelectedItems)
                 {
                     // kopiraj imena svih oblasti kroz koje treba loop-ovati
@@ -108,6 +111,11 @@ namespace testus2
                 catch
                 {
                     // ovaj deo koda se izvrsi kada je zavrseno sa svim oblastima
+                    if (zadaci.Count < 1)
+                    {
+                        MessageBox.Show("Morate dodati barem jednu vrstu zadataka!", "Kreiranje testa", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                        return;
+                    }
                     string genTestUrl = $"{Login.URI}/test?";
                     foreach (Zadatak z in zadaci)
                     {
@@ -116,7 +124,8 @@ namespace testus2
                         genTestUrl += "&tezina=" + z.Tezina.ToString();
                     }
                     var res = await client.PostAsync(genTestUrl, null);
-                    MessageBox.Show(await res.Content.ReadAsStringAsync());
+                    testId = Convert.ToInt32(await res.Content.ReadAsStringAsync());
+                    MessageBox.Show($"Test uspesno kreiran!\nID testa: {testId}\nUkupno grupa zadataka: {zadaci.Count}", "Kreiranje testa", MessageBoxButton.OK, MessageBoxImage.Information);
                     ShowTest();
                 }
             }
@@ -135,6 +144,12 @@ namespace testus2
                 return;
             }
             zadaci.Add(new Zadatak(MainListBox.SelectedItem.ToString(), Tezina.SelectedIndex, Convert.ToInt32(BrZad.Text)));
+            
+            MessageBox.Show($"Dodato {BrZad.Text} zadataka, tezine {Tezina.Text}", "Kreiranje testa", MessageBoxButton.OK, MessageBoxImage.Information);
+            
+            MainListBox.SelectedIndex = -1;
+            BrZad.Text = string.Empty;
+            Tezina.SelectedIndex = 0;
         }
     }
 }
